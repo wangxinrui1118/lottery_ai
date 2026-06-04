@@ -1,73 +1,83 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# 双色球 & 大乐透 AI 智能体知识库系统 - 后端
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+基于 NestJS 构建的 AI 智能体知识库后端服务，提供彩票数据爬取、LLM 智能分析、记忆存储与查询等能力。
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 技术栈
 
-## Description
+- **框架**: NestJS 10
+- **数据库**: MySQL
+- **向量存储**: LimbicDB
+- **LLM**: Ollama (qwen2.5:7b)
+- **爬虫**: Cheerio + Axios
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 快速开始
 
-## Installation
+### 1. 环境配置
 
 ```bash
-$ npm install
+cp .env.example .env
 ```
 
-## Running the app
+编辑 `.env` 填入你的数据库密码和 LLM 配置。
+
+### 2. 安装依赖
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Test
+### 3. 启动服务
 
 ```bash
-# unit tests
-$ npm run test
+# 开发模式（热重载）
+npm run start:dev
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# 生产模式
+npm run start:prod
 ```
 
-## Support
+服务默认运行在 `http://localhost:8000`。
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 一键启动（前后端）
 
-## Stay in touch
+在项目根目录执行：
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+./start.sh
+```
 
-## License
+## API 端点
 
-Nest is [MIT licensed](LICENSE).
+| 方法 | 路径 | 说明 |
+| ---- | ---- | ---- |
+| POST | `/query` | AI 智能查询 |
+| GET | `/stats` | 数据统计 |
+| GET | `/memory` | 记忆查询 |
+| POST | `/crawl` | 触发数据爬取 |
+| POST | `/insight` | AI 洞察分析 |
+
+## 项目结构
+
+```text
+src/
+├── agent/          # AI 智能体服务
+├── config/         # 配置管理
+├── crawler/        # 数据爬取模块
+├── database/       # 数据库服务
+├── dto/            # 请求/响应 DTO
+├── llm/            # LLM 调用模块
+├── memory/         # 记忆存储模块
+├── types/          # 类型定义
+└── main.ts         # 入口文件
+```
+
+## 脚本
+
+```bash
+npm run build        # 构建项目
+npm run start:dev    # 开发模式启动
+npm run start:prod   # 生产模式启动
+npm run lint         # ESLint 检查
+npm run test         # 单元测试
+npm run test:e2e     # E2E 测试
+```
